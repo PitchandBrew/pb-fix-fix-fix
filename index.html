@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080a0f">
+<title>PITCH & BREW — Multi Sports Arena</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div id="offlineBanner" class="offline hidden"><b>NO INTERNET CONNECTION</b><span>Please connect to the internet to enjoy PITCH & BREW.</span></div>
+<div id="intro" class="intro">
+  <div class="intro-grid"></div><div class="intro-glow"></div>
+  <div class="intro-brand"><span class="intro-kicker">MULTI SPORTS ARENA</span><h1>PITCH<span>&</span>BREW</h1><p>YOUR GAME. YOUR SPACE.</p></div>
+  <canvas id="cinema" aria-label="Animated cricket bat and ball"></canvas>
+  <div class="intro-bottom"><span>PREPARING YOUR ARENA</span><div class="progress"><i id="introProgress"></i></div><button id="skipIntro">SKIP INTRO ↗</button></div>
+</div>
+<header class="topbar">
+ <a href="#" class="wordmark"><span class="mark">P<span>&</span>B</span><span>PITCH <b>& BREW</b><small>MULTI SPORTS ARENA</small></span></a>
+ <nav><a href="#experience">Experience</a><a href="#booking">Book a slot</a><a href="#cafe">Cafe</a><a href="#contact">Contact</a></nav>
+ <a class="nav-cta" href="#booking">BOOK NOW <span>↗</span></a>
+ <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+</header>
+<main>
+<section class="hero" id="experience">
+ <div class="hero-copy"><div class="eyebrow"><i></i> MULTI SPORTS ARENA · CAFE · COMMUNITY</div>
+  <h2>PLAY YOUR<br><em>OWN GAME.</em></h2>
+  <p class="hero-lead">A premium space for the game you love. Book your pitch, bring your team, and recharge at the cafe.</p>
+  <div class="hero-actions"><a class="button gold" href="#booking">BOOK YOUR SLOT <span>↗</span></a><a class="button outline" href="#cafe">EXPLORE THE CAFE <span>↓</span></a></div>
+  <div class="hero-stats"><div><strong>04<span>+</span></strong><small>SPORTS TO PLAY</small></div><div><strong>01</strong><small>PLACE TO CONNECT</small></div><div><strong>100<span>%</span></strong><small>YOUR GAME DAY</small></div></div>
+ </div>
+ <div class="hero-visual"><div class="visual-label label-top"><span>01 / ARENA</span><i></i><span>EST. FOR PLAYERS</span></div>
+  <div class="arena-art"><div class="arena-sun"></div><div class="arena-ring ring1"></div><div class="arena-ring ring2"></div><div class="arena-ring ring3"></div><div class="pitch"><div class="pitch-line"></div><div class="pitch-circle"></div><div class="pitch-mid"></div></div><div class="art-ball"></div><div class="art-bat"></div><div class="art-stamp">PLAY<br>WITH<br>PASSION</div></div>
+  <div class="visual-caption"><span>MADE FOR THE MOMENT</span><strong>THE NEXT PLAY IS YOURS.</strong></div>
+ </div>
+ <div class="hero-index">P&B — 001</div>
+</section>
+<section class="sport-strip"><span>CHOOSE YOUR GAME</span>{% for sport in sports %}<b>{{ sport.upper() }} <i>✳</i></b>{% endfor %}</section>
+<section class="section booking-section" id="booking">
+ <div class="section-heading"><div><div class="eyebrow"><i></i> RESERVE YOUR TIME</div><h2>BOOK YOUR <em>SLOT.</em></h2></div><p>Pick your sport, date and time. We’ll check the schedule before sending your request.</p></div>
+ <div class="booking-layout">
+  <div class="booking-card"><div class="card-top"><span>01 — BOOKING DETAILS</span><span class="live-dot">LIVE SCHEDULE</span></div>
+   <form id="bookingForm">
+    <div class="field-grid"><label>YOUR NAME<input name="name" id="bookName" required maxlength="80" placeholder="Enter full name"></label><label>PHONE NUMBER<input name="phone" id="bookPhone" required maxlength="30" inputmode="tel" placeholder="03xx xxxxxxx"></label></div>
+    <div class="field-grid"><label>SPORT<select name="sport" id="sport" required>{% for s in sports %}<option>{{s}}</option>{% endfor %}</select></label><label>BOOKING DATE<input type="date" name="date" id="bookDate" required></label></div>
+    <div class="field-grid"><label>START TIME<select name="time" id="bookTime" required><option value="">Choose a date first</option></select></label><label>PLAYERS<input name="players" type="number" min="1" max="40" value="8" required></label></div>
+    <div class="field-grid"><label>DURATION<select name="duration" id="duration"><option value="1">1 day</option><option value="2">2 consecutive days</option><option value="3">3 consecutive days</option></select></label><label>EXTRA NOTES<input name="message" maxlength="500" placeholder="Optional details"></label></div>
+    <div id="slotStatus" class="slot-status">Choose a date to load the latest availability.</div>
+    <button class="button gold full" type="submit" id="bookingSubmit">CHECK & REQUEST BOOKING <span>↗</span></button>
+    <p class="fineprint">Your request is checked by the server. A WhatsApp message opens for final confirmation.</p>
+   </form>
+  </div>
+  <aside class="booking-aside"><div class="aside-icon">✳</div><span class="aside-overline">YOUR GAME DAY, YOUR WAY</span><h3>Bring the team.<br><em>Own the moment.</em></h3><p>From a quick match to a full team session, reserve your time and get ready to play.</p><div class="aside-line"></div><div class="aside-row"><span>01</span><b>Choose a sport & time</b></div><div class="aside-row"><span>02</span><b>Check availability</b></div><div class="aside-row"><span>03</span><b>Confirm via WhatsApp</b></div></aside>
+ </div>
+</section>
+<section class="cafe-section" id="cafe"><div class="section cafe-inner">
+ <div class="section-heading"><div><div class="eyebrow"><i></i> THE POST-GAME RITUAL</div><h2>PLAY HARD.<br><em>REFUEL WELL.</em></h2></div><p>Good games deserve good food. Add your favourites to the cart and send your cafe order through WhatsApp.</p></div>
+ <div class="cafe-layout"><div class="menu-grid">{% for item in cafe %}<article class="menu-item"><div class="food-art">{{item.emoji}}</div><div class="menu-item-info"><span class="food-category">PITCH & BREW CAFE</span><h3>{{item.name}}</h3><strong>Rs {{item.price}}</strong></div><button class="add-btn" data-id="{{item.id}}" aria-label="Add {{item.name}}">+</button></article>{% endfor %}</div>
+ <aside class="cart"><div class="cart-heading"><span>YOUR ORDER</span><span class="cart-count" id="cartCount">0</span></div><div id="cartItems" class="cart-items"><p class="empty-cart">Your next favourite starts here.</p></div><div class="cart-total"><span>SUBTOTAL</span><strong id="cartTotal">Rs 0</strong></div><form id="cafeForm"><label>NAME<input id="cafeName" required placeholder="Your name"></label><label>PHONE<input id="cafePhone" required inputmode="tel" placeholder="03xx xxxxxxx"></label><button class="button gold full" type="submit">ORDER VIA WHATSAPP ↗</button></form><p class="fineprint">Prices in PKR. Orders are sent to the cafe via WhatsApp.</p></aside></div>
+</div></section>
+<section class="contact-section" id="contact"><div class="section contact-inner"><div><div class="eyebrow"><i></i> WE'RE HERE FOR YOU</div><h2>LET'S GET<br><em>YOU IN THE GAME.</em></h2></div><div class="contact-right"><p>Questions about bookings, team sessions or the cafe? Message our team and we’ll help you get started.</p><a class="button gold" target="_blank" rel="noopener" href="https://wa.me/923025120000">CHAT ON WHATSAPP ↗</a><div class="contact-number">WHATSAPP / BOOKINGS <strong>0302-5122000</strong></div></div></div></section>
+</main>
+<footer><a href="#" class="footer-logo">PITCH<span>&</span>BREW</a><span>YOUR GAME. YOUR SPACE.</span><a href="/admin">ADMIN ↗</a><small>© <span id="year"></span> PITCH & BREW. MADE FOR PLAYERS.</small></footer>
+<div id="toast" class="toast" role="status"></div>
+<script>window.PB_CONFIG={whatsapp:"923025120000",apiBase:"",sports:{{ sports|tojson }},cafe:{{ cafe|tojson }}};</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
